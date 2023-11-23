@@ -1,15 +1,17 @@
 "use client";
-import { GroupedResumePreview, ResumePreview } from "@/types";
+
+import { GroupedResumePreview } from "@/types";
 import {
   extractResumesPreview,
   groupResumesPreviewByCreationDate,
 } from "@/utils/transformers";
 import { useCallback, useEffect, useState } from "react";
 import { ResumesCard } from "./resumes-card";
+import { FaFaceFrown } from "react-icons/fa6";
 
 import { Spinner } from "./spinner";
-import { isEmpty } from "lodash";
 import { changeFormateDate, getWeekDayPtBRFromDate } from "@/utils/date";
+import { isEmpty } from "lodash";
 
 export const Resumes = () => {
   const [resumesPreview, setResumesPreview] = useState<GroupedResumePreview>(
@@ -24,8 +26,6 @@ export const Resumes = () => {
 
       const resumesPreview = extractResumesPreview(data);
       const groupedPreview = groupResumesPreviewByCreationDate(resumesPreview);
-
-      console.log("DEBUG groupedPreview", groupedPreview);
 
       setResumesPreview(groupedPreview);
     } catch (error) {
@@ -43,7 +43,7 @@ export const Resumes = () => {
     <div className="h-screen py-6">
       {isLoading && (
         <div className="flex justify-center items-center h-[80%]">
-          <Spinner />
+          <Spinner size={12} />
         </div>
       )}
 
@@ -52,6 +52,13 @@ export const Resumes = () => {
           isLoading ? "opacity-0" : "opacity-100"
         }`}
       >
+        {!isLoading && isEmpty(resumesPreview) && (
+          <div className="flex flex-col gap-2 justify-center items-center h-[80vh]">
+            <FaFaceFrown size={70} color="white" />
+            <span>Nenhum currículo cadastrado</span>
+          </div>
+        )}
+
         {Object.entries(resumesPreview).map(([strDate, resumes]) => (
           <div key={strDate} className="mb-6">
             <p className="mb-2">{`${changeFormateDate(

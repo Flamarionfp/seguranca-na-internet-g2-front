@@ -22,7 +22,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <header className="w-full bg-gray-800/40 h-20">
           <div className="max-w-[1236px] h-full flex justify-between items-center mx-auto">
-            <div className="flex items-center gap-3">
+            <Link href="/" className="flex items-center gap-3">
               <Image
                 src="/fit-logo.png"
                 alt="Logo FIT"
@@ -30,12 +30,12 @@ export default function RootLayout({
                 height={50}
               />
               <h1 className="font-bold text-xl">Currículos</h1>
-            </div>
+            </Link>
             <div />
 
             <Link
               className="flex items-center gap-2 hover:scale-90 transition-all ease-in duration-150  hover:text-blue-600"
-              href="/"
+              href="/register-resume"
             >
               <span className="font-light">Cadastrar Currículo</span>
               <MdFileUpload />
@@ -43,7 +43,7 @@ export default function RootLayout({
           </div>
         </header>
 
-        <div className="h-screen w-full max-w-[1236px] mx-auto flex items-center">
+        <div className="h-screen w-full max-w-[1236px] mx-auto flex">
           {children}
         </div>
       </body>

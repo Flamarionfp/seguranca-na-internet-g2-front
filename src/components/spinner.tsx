@@ -1,9 +1,13 @@
-export const Spinner = () => {
+type SpinnerProps = {
+  size?: number;
+};
+
+export const Spinner = ({ size }: SpinnerProps) => {
   return (
     <div role="status">
       <svg
         aria-hidden="true"
-        className="w-12 h-12 text-white animate-spin dark:text-white fill-blue-600"
+        className={`w-${size} h-${size} text-white animate-spin dark:text-white fill-blue-600`}
         viewBox="0 0 100 101"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
