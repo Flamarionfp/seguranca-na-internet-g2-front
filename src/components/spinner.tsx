@@ -1,13 +1,15 @@
 type SpinnerProps = {
-  size?: number;
+  variant?: "small" | "normal";
 };
 
-export const Spinner = ({ size }: SpinnerProps) => {
+export const Spinner = ({ variant = "normal" }: SpinnerProps) => {
   return (
     <div role="status">
       <svg
         aria-hidden="true"
-        className={`w-${size} h-${size} text-white animate-spin dark:text-white fill-blue-600`}
+        className={`${
+          variant === "normal" ? "w-12 h-12" : "w-4 h-4"
+        } text-white animate-spin dark:text-white fill-blue-600`}
         viewBox="0 0 100 101"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"

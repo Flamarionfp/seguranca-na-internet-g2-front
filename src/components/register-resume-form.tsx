@@ -133,7 +133,7 @@ export const RegisterResumeForm = ({
         disabled={isSubmitting}
         className="fixed bottom-10 w-[50vw] flex justify-center items-center bg-blue-600 p-4 rounded-md font-bold transition-all active:scale-90 hover:bg-blue-600/40 disabled:cursor-default disabled:bg-blue-600/40 disabled:scale-100"
       >
-        {isSubmitting ? <Spinner size={4} /> : "Cadastrar"}
+        {isSubmitting ? <Spinner variant="small" /> : "Cadastrar"}
       </button>
     </form>
   );

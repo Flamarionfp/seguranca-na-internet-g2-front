@@ -43,7 +43,7 @@ export const Resumes = () => {
     <div className="h-screen py-6">
       {isLoading && (
         <div className="flex justify-center items-center h-[80%]">
-          <Spinner size={12} />
+          <Spinner />
         </div>
       )}
 
