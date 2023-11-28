@@ -3,7 +3,7 @@
 import { Input } from "./input";
 import { MdLocalPhone, MdEmail, MdPerson, MdHomeFilled } from "react-icons/md";
 import { Fragment, useCallback, useEffect, useState } from "react";
-import { FormErrors, registerResume } from "@/app/actions";
+import { registerResume } from "@/app/actions";
 import { useFormState } from "react-dom";
 import { SubmitButton } from "./submit-button";
 import { ToastContainer, toast } from "react-toastify";
@@ -11,17 +11,18 @@ import "react-toastify/dist/ReactToastify.css";
 import { toastDefaultProps } from "@/utils/toast";
 import { isUndefined } from "lodash";
 import { formatCellPhone } from "@/utils/phone";
+import { RegisterResumeFormErrors } from "@/utils/schemas/register-resume-form";
 
 type FormState = {
   message: string;
   hasError: boolean;
-  errors: FormErrors;
+  errors: RegisterResumeFormErrors;
 };
 
 const formInitialState: FormState = {
   message: "",
   hasError: false,
-  errors: {} as FormErrors,
+  errors: {} as RegisterResumeFormErrors,
 };
 
 export const RegisterResumeForm = () => {

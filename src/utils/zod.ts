@@ -18,3 +18,19 @@ export const getZodErrors = <T>(error: ZodError): ErrorObject<T> => {
 
   return errorsObject;
 };
+
+export const handleFormError = <T>(error: Error, message: string) => {
+  let errors: ErrorObject<T> = {} as ErrorObject<T>;
+
+  const isZodError = verifyZodError(error as Error);
+
+  if (isZodError) {
+    errors = getZodErrors<T>(error as ZodError);
+  }
+
+  return {
+    message,
+    hasError: true,
+    errors,
+  };
+};
