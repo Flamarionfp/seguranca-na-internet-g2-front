@@ -7,34 +7,15 @@ import { isEmpty } from "lodash";
 import { formatCellPhone } from "@/utils/phone";
 
 type ResumeInfoProps = {
-  id: string | string[];
+  resumesInfoDetails: ResumeInfoDetails;
 };
 
-export const ResumeInfo = ({ id }: ResumeInfoProps) => {
+export const ResumeInfo = ({ resumesInfoDetails }: ResumeInfoProps) => {
   const [isLoading, setIsLoading] = useState(true);
-  const [resumesInfoDetails, setResumesInfoDetails] =
-    useState<ResumeInfoDetails>({} as ResumeInfoDetails);
-
-  const fetchResumeInfoDetails = useCallback(async () => {
-    try {
-      const response = await fetch(`http://localhost:4000/resume/${id}`, {
-        headers: {
-          authorization: process.env.API_KEY,
-        },
-      });
-      const data = await response.json();
-
-      setResumesInfoDetails(data);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setIsLoading(false);
-    }
-  }, [id]);
 
   useEffect(() => {
-    fetchResumeInfoDetails();
-  }, [fetchResumeInfoDetails]);
+    setIsLoading(false);
+  }, []);
 
   return (
     <div

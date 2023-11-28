@@ -13,35 +13,16 @@ import { Spinner } from "./spinner";
 import { changeFormateDate, getWeekDayPtBRFromDate } from "@/utils/date";
 import { isEmpty } from "lodash";
 
-export const Resumes = () => {
-  const [resumesPreview, setResumesPreview] = useState<GroupedResumePreview>(
-    {}
-  );
+type ResumesProps = {
+  resumesPreview: GroupedResumePreview;
+};
+
+export const Resumes = ({ resumesPreview }: ResumesProps) => {
   const [isLoading, setIsLoading] = useState(true);
 
-  const fetchResumes = useCallback(async () => {
-    try {
-      const response = await fetch("http://localhost:4000/resumes", {
-        headers: {
-          authorization: `${process.env.API_KEY}`,
-        },
-      });
-      const data = await response.json();
-
-      const resumesPreview = extractResumesPreview(data);
-      const groupedPreview = groupResumesPreviewByCreationDate(resumesPreview);
-
-      setResumesPreview(groupedPreview);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setIsLoading(false);
-    }
-  }, []);
-
   useEffect(() => {
-    fetchResumes();
-  }, [fetchResumes]);
+    setIsLoading(false);
+  }, []);
 
   return (
     <div className="h-screen py-6">

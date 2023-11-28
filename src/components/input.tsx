@@ -11,7 +11,6 @@ export const Input = ({
   label,
   error,
   icon,
-  name,
   isTextArea = false,
   ...rest
 }: InputProps) => {
@@ -21,7 +20,7 @@ export const Input = ({
 
   return (
     <>
-      {label && <label className={textErrorStyle}>{label}</label>}
+      {label && <label>{label}</label>}
       <div className="relative">
         {isTextArea ? (
           <textarea
