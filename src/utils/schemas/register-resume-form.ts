@@ -2,11 +2,23 @@ import { z } from "zod";
 import { getMaxSizeMessage, requiredFieldMessage } from "./helpers";
 import { ErrorObject } from "../zod";
 
+const fullNameValidator = (value: string): boolean => {
+  try {
+    const names = value.split(" ");
+    const isValidLastName = names[1]?.trim().length > 0;
+
+    return names.length >= 2 && isValidLastName;
+  } catch (error) {
+    return false;
+  }
+};
+
 export const registerResumeFormSchema = z.object({
   full_name: z
     .string({ required_error: requiredFieldMessage })
     .regex(/^[a-zA-Z\s]+$/, { message: "Nome inválido" })
-    .max(100, getMaxSizeMessage(100)),
+    .max(100, getMaxSizeMessage(100))
+    .refine(fullNameValidator, "É necessário informar o nome completo"),
   email: z
     .string({ required_error: requiredFieldMessage })
     .email({ message: "E-mail inválido" })
