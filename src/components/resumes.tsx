@@ -1,14 +1,8 @@
 "use client";
 
 import { GroupedResumePreview } from "@/types";
-import {
-  extractResumesPreview,
-  groupResumesPreviewByCreationDate,
-} from "@/utils/transformers";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { ResumesCard } from "./resumes-card";
-import { FaFaceFrown } from "react-icons/fa6";
-
 import { Spinner } from "./spinner";
 import { changeFormateDate, getWeekDayPtBRFromDate } from "@/utils/date";
 import { isEmpty } from "lodash";
