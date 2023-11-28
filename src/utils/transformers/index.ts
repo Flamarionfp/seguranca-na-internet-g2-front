@@ -4,7 +4,7 @@ import { groupBy, sortBy } from "lodash";
 export const extractResumesPreview = (
   resumesResponse: ListResumesResponse
 ): ResumePreview[] => {
-  return resumesResponse.map(({ createdAt, person: { id, name, email } }) => {
+  return resumesResponse.map(({ id, createdAt, person: { name, email } }) => {
     return {
       id,
       name,

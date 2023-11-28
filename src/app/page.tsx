@@ -1,6 +1,6 @@
 import { Resumes } from "@/components/resumes";
 
-export default async function Home() {
+export default function Home() {
   return (
     <main className="w-full">
       <Resumes />

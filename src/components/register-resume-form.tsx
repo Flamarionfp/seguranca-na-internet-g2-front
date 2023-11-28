@@ -6,6 +6,8 @@ import { MdLocalPhone, MdEmail, MdPerson, MdHomeFilled } from "react-icons/md";
 import { useFormik } from "formik";
 import { toFormikValidationSchema } from "zod-formik-adapter";
 import { Spinner } from "./spinner";
+import { useEffect, useState } from "react";
+import { formatCellPhone } from "@/utils/phone";
 
 const requiredFieldMessage = "Campo obrigatório";
 
@@ -18,15 +20,17 @@ const formSchema = z.object({
     .email({ message: "E-mail inválido" }),
   phone_number: z
     .string({ required_error: requiredFieldMessage })
-    .min(10, { message: "Telefone inválido" })
-    .max(11, { message: "Telefone inválido" })
-    .regex(/^\d+$/, { message: "Telefone inválido" })
+    .regex(new RegExp("^\\(\\d{2}\\) \\d{5}-\\d{4}$"), {
+      message: "Telefone inválido",
+    })
     .optional(),
   web_address: z
     .string({ required_error: requiredFieldMessage })
     .url({ message: "Endereço web inválido" })
     .optional(),
-  work_experience: z.string({ required_error: requiredFieldMessage }).min(50),
+  work_experience: z
+    .string({ required_error: requiredFieldMessage })
+    .min(50, { message: "É necessário pelo menos 50 caracteres" }),
 });
 
 export type InitialValues = z.infer<typeof formSchema>;
@@ -62,9 +66,17 @@ export const RegisterResumeForm = ({
     onSubmit,
   });
 
+  const [pageLoading, setPageLoading] = useState(true);
+
+  useEffect(() => {
+    setPageLoading(false);
+  }, []);
+
   return (
     <form
-      className="mx-auto max-w-[50vw] overflow-y-scroll max-h-[68vh] py-6"
+      className={`transition-all ease-in duration-500 ${
+        pageLoading ? "opacity-0" : "opacity-100"
+      } mx-auto max-w-[50vw] overflow-y-scroll max-h-[68vh] py-6`}
       onSubmit={(e) => {
         e.preventDefault();
         handleSubmit(e);
@@ -83,9 +95,12 @@ export const RegisterResumeForm = ({
         />
 
         <Input
+          maxLength={15}
           name="phone_number"
           value={values.phone_number}
-          onChange={(e) => setFieldValue("phone_number", e.target.value)}
+          onChange={(e) =>
+            setFieldValue("phone_number", formatCellPhone(e.target.value))
+          }
           onBlur={() => setFieldTouched("phone_number")}
           icon={<MdLocalPhone color="black" />}
           label="Telefone"

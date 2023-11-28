@@ -21,7 +21,11 @@ export const Resumes = () => {
 
   const fetchResumes = useCallback(async () => {
     try {
-      const response = await fetch("http://localhost:4000/resumes");
+      const response = await fetch("http://localhost:4000/resumes", {
+        headers: {
+          authorization: `${process.env.API_KEY}`,
+        },
+      });
       const data = await response.json();
 
       const resumesPreview = extractResumesPreview(data);

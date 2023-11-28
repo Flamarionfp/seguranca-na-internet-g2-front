@@ -24,3 +24,7 @@ export type ListResumesResponse = Resume[];
 export type ResumePreview = Pick<Person, "id" | "name" | "email" | "createdAt">;
 
 export type GroupedResumePreview = Dictionary<ResumePreview[]>;
+
+export interface ResumeInfoDetails extends Resume {
+  person: Person;
+}
