@@ -1,10 +1,11 @@
 "use client";
 
 import { ResumeInfoDetails } from "@/types";
-import { useCallback, useEffect, useState } from "react";
-import { Spinner } from "./spinner";
-import { isEmpty } from "lodash";
+import { useEffect, useState } from "react";
+
 import { formatCellPhone } from "@/utils/phone";
+import { EmptyState } from "./empty-state";
+import { isEmpty } from "lodash";
 
 type ResumeInfoProps = {
   resumesInfoDetails: ResumeInfoDetails;
@@ -12,6 +13,7 @@ type ResumeInfoProps = {
 
 export const ResumeInfo = ({ resumesInfoDetails }: ResumeInfoProps) => {
   const [isLoading, setIsLoading] = useState(true);
+  const isEmptyData = isEmpty(resumesInfoDetails?.person);
 
   useEffect(() => {
     setIsLoading(false);
@@ -23,14 +25,10 @@ export const ResumeInfo = ({ resumesInfoDetails }: ResumeInfoProps) => {
         isLoading ? "opacity-0" : "opacity-100"
       }`}
     >
-      {isLoading && (
-        <div className="flex justify-center items-center h-[80%]">
-          <Spinner />
-        </div>
-      )}
+      {isLoading && <></>}
 
-      {isEmpty(resumesInfoDetails) ? (
-        <></>
+      {isEmptyData ? (
+        <EmptyState message="Currículo não encontrado" />
       ) : (
         <div className="bg-white rounded-md p-4 shadow-lg text-black overflow-y-scroll max-h-[80%]">
           <p>

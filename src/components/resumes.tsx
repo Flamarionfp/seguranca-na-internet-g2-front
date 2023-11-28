@@ -12,6 +12,7 @@ import { FaFaceFrown } from "react-icons/fa6";
 import { Spinner } from "./spinner";
 import { changeFormateDate, getWeekDayPtBRFromDate } from "@/utils/date";
 import { isEmpty } from "lodash";
+import { EmptyState } from "./empty-state";
 
 type ResumesProps = {
   resumesPreview: GroupedResumePreview;
@@ -38,10 +39,7 @@ export const Resumes = ({ resumesPreview }: ResumesProps) => {
         }`}
       >
         {!isLoading && isEmpty(resumesPreview) && (
-          <div className="flex flex-col gap-2 justify-center items-center h-[80vh]">
-            <FaFaceFrown size={70} color="white" />
-            <span>Nenhum currículo cadastrado</span>
-          </div>
+          <EmptyState message="Nenhum currículo cadastrado" />
         )}
 
         {Object.entries(resumesPreview).map(([strDate, resumes]) => (
